@@ -19,4 +19,8 @@ describe('Test /api/hello', () => {
         expect(response.statusCode).toBe(200);
         expect(response.body).toEqual({ result: result });
     });
+    test('GET /api/hello/square/XYZ', async () => {
+        const response = await supertest(app).get('/api/hello/square/XYZ');
+        expect(response.statusCode).toBe(404);
+    });
 });
