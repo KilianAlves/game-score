@@ -2,7 +2,7 @@ import supertest from 'supertest';
 import { app } from '../../src/app';
 import { test } from '@jest/globals';
 import {mongoClient} from '../../src/services/mongodb';
-import {helloCollection} from '../../src/hello/hello.repository';
+import { helloRepository } from '../../src/hello/hello.repository';
 
 describe('Test /api/hello', () => {
     test('GET /api/hello/world', async () => {
@@ -26,11 +26,11 @@ describe('Test /api/hello', () => {
         expect(response.statusCode).toBe(404);
     });
     test("GET /api/hello", async () => {
-        await helloCollection.deleteMany({});
-        await helloCollection.insertMany([
+        await helloRepository.clear();
+        await helloRepository.insert(
             { message: "hello" },
             { message: "world" },
-        ]); 
+        ); 
         
         const response = await supertest(app).get("/api/hello");
         

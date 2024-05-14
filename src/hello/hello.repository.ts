@@ -1,5 +1,22 @@
 import { Collection } from "mongodb";
 import { mongodb } from "../services/mongodb";
 import { HelloData } from "./hello";
-        
-export const helloCollection = mongodb.collection<HelloData>('hello');
+
+
+class HelloRepository {
+    private _helloCollection: Collection<HelloData>
+    
+    constructor() {
+        this._helloCollection = mongodb.collection<HelloData>('hello');
+    } 
+
+    public async clear() {
+        await this._helloCollection.deleteMany({});
+    }
+
+    public async insert(...obj: HelloData[]) {
+        await this._helloCollection.insertMany(obj);
+    }
+}
+
+export const helloRepository = new HelloRepository()

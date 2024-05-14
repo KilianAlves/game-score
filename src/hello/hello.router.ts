@@ -1,6 +1,6 @@
 import express, { Router } from 'express';
 import { HelloController } from './hello.controller';
-import {helloCollection} from './hello.repository';
+import {helloRepository} from './hello.repository';
 
 const router: Router = express.Router();
 router.get('/', HelloController.index);

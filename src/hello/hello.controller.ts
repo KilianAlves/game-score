@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-import { helloCollection } from "./hello.repository";
 
 export class HelloController {
     public static getHelloWorld(req: Request, res: Response): void {
