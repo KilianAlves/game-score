@@ -24,7 +24,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Hello'
+                $ref: '#/components/schemas/World'
   /api/hello/square/{number}:
     get:
       tags:
@@ -44,10 +44,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Square'
-                
+  /api/hello:
+    get:
+      tags:
+        - hello
+      description: message de bienvenue
+      responses:
+        200:
+          description: retourne un message de bienvenue
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hello'
 components:
   schemas:
-    Hello:
+    World:
       type: object
       properties:
         message:
@@ -63,3 +74,11 @@ components:
       additionalProperties: false
       required:
         - square
+    Hello:
+      type: object
+      properties:
+        message:
+          type: string
+        additionalProperties: false
+        required:
+          - message
