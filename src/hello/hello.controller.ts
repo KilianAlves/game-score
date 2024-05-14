@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import {helloRepository} from './hello.repository';
 
 export class HelloController {
     public static getHelloWorld(req: Request, res: Response): void {
@@ -18,5 +19,10 @@ export class HelloController {
             { message: "hello"},
             { message: "world"}
         ])
+    }
+    public static async postIndex(req: Request, res: Response): Promise<void> {
+        const message = req.params.message;
+        await helloRepository.insert({message: message});
+        res.status(201).json({message: message});
     }
 }
