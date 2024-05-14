@@ -1,12 +1,10 @@
 import express, { Router } from 'express';
 import { HelloController } from './hello.controller';
+import {helloCollection} from './hello.repository';
 
 const router: Router = express.Router();
-router.get('/world', (req, res) => {
-    new HelloController().getHelloWorld(req, res);
-});
-router.get('/square/:num', (req, res) => {
-    new HelloController().getSquare(req, res);
-});
+router.get('/', HelloController.index);
+router.get('/world', HelloController.getHelloWorld);
+router.get('/square/:num', HelloController.getSquare);
 
 export = router;

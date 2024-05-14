@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { app } from './app';
 import { serve, setup } from 'swagger-ui-express';
 import { parseDocument } from 'yaml';
