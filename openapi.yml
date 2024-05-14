@@ -25,14 +25,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Hello'
-  /api/hello/square:
+  /api/hello/square/{number}:
     get:
       tags:
         - hello
       description: retourne le carré d'un nombre
       parameters:
         - name: number
-          in: query
+          in: path
           description: nombre à mettre au carré
           required: true
           schema:
@@ -43,12 +43,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  square:
-                    type: integer
-                required:
-                  - square
+                $ref: '#/components/schemas/Square'
                 
 components:
   schemas:
@@ -60,3 +55,11 @@ components:
       additionalProperties: false
       required:
         - message
+    Square:
+      type: object
+      properties:
+        square:
+          type: integer
+      additionalProperties: false
+      required:
+        - square
