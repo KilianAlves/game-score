@@ -1,7 +1,9 @@
 import supertest from 'supertest';
 import { app } from '../../src/app';
 import { test } from '@jest/globals';
-        
+import {mongoClient} from '../../src/services/mongodb';
+import {helloCollection} from '../../src/hello/hello.repository';
+
 describe('Test /api/hello', () => {
     test('GET /api/hello/world', async () => {
         const response = await supertest(app).get('/api/hello/world');
@@ -23,4 +25,22 @@ describe('Test /api/hello', () => {
         const response = await supertest(app).get('/api/hello/square/XYZ');
         expect(response.statusCode).toBe(404);
     });
+    test("GET /api/hello", async () => {
+        await helloCollection.deleteMany({});
+        await helloCollection.insertMany([
+            { message: "hello" },
+            { message: "world" },
+        ]); 
+        
+        const response = await supertest(app).get("/api/hello");
+        
+        expect(response.statusCode).toBe(200); 
+        expect(response.body.length).toEqual(2);
+        expect(response.body[0].message).toEqual("hello");
+        expect(response.body[1].message).toEqual("world"); 
+    })
 });
+
+afterAll(async () => {
+    await mongoClient.close();
+})
