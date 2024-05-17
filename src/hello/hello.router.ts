@@ -4,7 +4,7 @@ import {helloRepository} from './hello.repository';
 
 const router: Router = express.Router();
 router.get('/', HelloController.index);
-router.post('/', HelloController.postIndex)
+router.post('/', express.json(), HelloController.postIndex)
 router.get('/world', HelloController.getHelloWorld);
 router.get('/square/:num', HelloController.getSquare);
 

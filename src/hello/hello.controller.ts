@@ -21,8 +21,9 @@ export class HelloController {
         ])
     }
     public static async postIndex(req: Request, res: Response): Promise<void> {
-        const message = req.params.message;
+        console.log(req.body);
+        const message = req.body.message;
         await helloRepository.insert({message: message});
-        res.status(201).json({message: message});
+        res.status(201).send({message: message});
     }
 }
