@@ -56,6 +56,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Hello'
+    post: 
+      tags:
+        - hello
+      description: poste un message
+      responses: 
+        201:
+          description: poste un message dans la base de données
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HelloPost' 
+        400:
+          description: poste un message invalide
 components:
   schemas:
     World:
@@ -79,6 +92,14 @@ components:
       properties:
         message:
           type: string
-        additionalProperties: false
-        required:
-          - message
+      additionalProperties: false
+      required:
+        - message
+    HelloPost:
+      type: object
+      properties:
+        message:
+          type: string
+      additionalProperties: false
+      required:
+        - message
