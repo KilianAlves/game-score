@@ -42,7 +42,7 @@ describe('Test /api/hello', () => {
     test("POST /api/hello", async () => {
         const response = await supertest(app).post('/api/hello').send({ message: "test"});
         expect(response.statusCode).toBe(201);
-        expect(response.body.message).toEqual({ message: "test"})
+        expect(response.body.message).toEqual("test")
     })
 });
 
