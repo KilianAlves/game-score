@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import {helloRepository} from './hello.repository';
+import { validationResult } from "express-validator";
 
 export class HelloController {
     public static getHelloWorld(req: Request, res: Response): void {
@@ -21,8 +22,20 @@ export class HelloController {
         ])
     }
     public static async postIndex(req: Request, res: Response): Promise<void> {
+
+        const result = validationResult(req);
+        if (!result.isEmpty()) {
+            res.status(400).json({
+                "status": "error",
+                "message": "Données invalides.",
+            })
+            return;
+        }
+
         const message = req.body;
+        
         await helloRepository.insert(message);
+        console.log(message);
         res.status(201).json(message);
     }
 }
