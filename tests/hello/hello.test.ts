@@ -38,11 +38,19 @@ describe('Test /api/hello', () => {
         expect(response.body.length).toEqual(2);
         expect(response.body[0].message).toEqual("hello");
         expect(response.body[1].message).toEqual("world"); 
-    })
+    });
     test("POST /api/hello", async () => {
         const response = await supertest(app).post('/api/hello').send({ message: "test"});
         expect(response.statusCode).toBe(201);
-        expect(response.body.message).toEqual("test")
+        expect(response.body.message).toEqual("test");
+    });
+    test("POST /api/hello", async () => {
+        const response = await supertest(app).post('/api/hello').send({ msg: "test" });
+        expect(response.statusCode).toBe(400);
+        expect(response.body).toEqual({
+            "status": "error",
+            "message": "Données invalides.",
+        });
     })
 });
 
