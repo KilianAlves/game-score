@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import {helloRepository} from './hello.repository';
 import { validationResult } from "express-validator";
+import { ObjectId } from "mongodb";
 
 export class HelloController {
     public static getHelloWorld(req: Request, res: Response): void {
@@ -35,7 +36,19 @@ export class HelloController {
         const message = req.body;
         
         await helloRepository.insert(message);
-        console.log(message);
         res.status(201).json(message);
+    }
+    public static async getById(req: Request, res: Response): Promise<void> {
+        console.log("1");
+
+        const id = req.query.id as string;
+        console.log("2");
+
+        const objectId = new ObjectId(id);
+        console.log("3");
+
+        const helloObject = await helloRepository.findOne(objectId);
+        console.log("4");
+        res.status(200).json(helloObject);
     }
 }
