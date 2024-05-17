@@ -3,6 +3,9 @@ import { app } from '../../src/app';
 import { test } from '@jest/globals';
 import {mongoClient} from '../../src/services/mongodb';
 import { helloRepository } from '../../src/hello/hello.repository';
+import { response } from 'express';
+import { ObjectId } from 'mongodb';
+import { before } from 'node:test';
 
 describe('Test /api/hello', () => {
     test('GET /api/hello/world', async () => {
@@ -51,7 +54,17 @@ describe('Test /api/hello', () => {
             "status": "error",
             "message": "Données invalides.",
         });
+    });
+    before(async () => {
+        await helloRepository.insert(
+            { _id: new ObjectId('1FA1245D1FA1245D1FA1245D'), message: "hello" },
+        ); 
     })
+    test("GET /api/hello/1", async () => {
+        const response = await supertest(app).post('/api/hello/1FA1245D1FA1245D1FA1245D');
+        expect(response.statusCode).toBe(200);
+        expect(response.body.message).toEqual("hello");
+    });
 });
 
 afterAll(async () => {
