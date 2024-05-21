@@ -65,6 +65,7 @@ describe('Test /api/hello', () => {
         expect(response.body.message).toEqual("hello");
     });
     test("GET /api/hello/1FA1245D1FA1245D1FA1245F", async () => {
+        await helloRepository.clear();
         const response = await supertest(app).get('/api/hello/1FA1245D1FA1245D1FA1245F');
         expect(response.statusCode).toBe(404);
         expect(response.body).toEqual({
@@ -79,7 +80,16 @@ describe('Test /api/hello', () => {
         ); 
         const response = await supertest(app).delete('/api/hello/1FA1245D1FA1245D1FA1245F');
         expect(response.statusCode).toBe(200);
-    })
+    });
+    test("DELETE /api/hello/1FA1245D1FA1245D1FA1245A", async () => {
+        await helloRepository.clear();
+        const response = await supertest(app).delete('/api/hello/1FA1245D1FA1245D1FA1245A');
+        expect(response.statusCode).toBe(404);
+        expect(response.body).toEqual({
+            "status": "error",
+            "message": "Message non trouvé.",
+        });
+    });
 });
 
 afterAll(async () => {
