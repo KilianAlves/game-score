@@ -64,6 +64,14 @@ describe('Test /api/hello', () => {
         expect(response.statusCode).toBe(200);
         expect(response.body.message).toEqual("hello");
     });
+    test("GET /api/hello/1FA1245D1FA1245D1FA1245F", async () => {
+        const response = await supertest(app).get('/api/hello/1FA1245D1FA1245D1FA1245F');
+        expect(response.statusCode).toBe(404);
+        expect(response.body).toEqual({
+            "status": "error",
+            "message": "Message non trouvé.",
+        });
+    });
 });
 
 afterAll(async () => {
