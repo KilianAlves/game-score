@@ -108,6 +108,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HelloId'
+        404:
+          description: Message non trouvé.
 components:
   schemas:
     World:
