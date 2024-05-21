@@ -68,7 +68,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/HelloPost' 
         400:
-          description: poste un message invalide
+          description: Données invalides.
   /api/hello/{id}:
     get:
       tags:
@@ -88,6 +88,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/HelloId'
+        404:
+          description: Message non trouvé.
 components:
   schemas:
     World:
