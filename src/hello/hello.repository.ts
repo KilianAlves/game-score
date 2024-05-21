@@ -27,6 +27,13 @@ class HelloRepository {
     public async deleteOne(id: ObjectId) {
         return await this._helloCollection.deleteOne({_id: id});
     }
+    public async populate(count: number, fixturesGenerator: (partialEntity?: Partial<HelloData>) => HelloData) : Promise<void> {
+        await this.clear();
+        for (let i = 0; i < count; i++) {
+            await this.insert(fixturesGenerator());
+        }
+        return;
+    }
 }
 
 export const helloRepository = new HelloRepository()

@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import {helloRepository} from './hello.repository';
 import { validationResult } from "express-validator";
 import { ObjectId } from "mongodb";
-import { isConstructorDeclaration } from "typescript";
 
 export class HelloController {
     public static getHelloWorld(req: Request, res: Response): void {
