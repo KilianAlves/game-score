@@ -1,6 +1,5 @@
 import { ObjectId } from "mongodb";
-        
-export interface HelloData {
-    _id?: ObjectId;
+import {BaseEntity} from "./../base/ entity"        
+export interface HelloData extends BaseEntity {
     message: string;
 }
