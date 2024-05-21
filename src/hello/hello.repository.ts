@@ -24,6 +24,9 @@ class HelloRepository {
     public async findOne(id: ObjectId) {
         return await this._helloCollection.findOne({_id: id});
     }
+    public async deleteOne(id: ObjectId) {
+        return await this._helloCollection.deleteOne({_id: id});
+    }
 }
 
 export const helloRepository = new HelloRepository()

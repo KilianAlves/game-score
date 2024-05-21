@@ -49,4 +49,10 @@ export class HelloController {
         }
         res.status(200).json(helloObject);
     }
+    public static async deleteById(req: Request, res: Response): Promise<void> {
+        const id = req.params.id as string;
+        const objectId = new ObjectId(id);
+        const deletedObject = await helloRepository.deleteOne(objectId);
+        res.status(200).json(deletedObject);
+    }
 }

@@ -9,5 +9,6 @@ router.post('/', express.json(), body("message").exists().isString(), HelloContr
 router.get('/world', HelloController.getHelloWorld);
 router.get('/square/:num', HelloController.getSquare);
 router.get('/:id', param('id').isMongoId(), HelloController.getById)
+router.delete('/:id', param('id').isMongoId(), HelloController.deleteById)
 
 export = router;
