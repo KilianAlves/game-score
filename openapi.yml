@@ -90,6 +90,24 @@ paths:
                 $ref: '#/components/schemas/HelloId'
         404:
           description: Message non trouvé.
+    delete:
+      tags:
+        - hello
+      description: supprime le message selon un id
+      parameters:
+        - name: id
+          in: path
+          description: id du message
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: supprime le message selon un id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HelloId'
 components:
   schemas:
     World:
