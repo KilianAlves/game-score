@@ -55,11 +55,12 @@ describe('Test /api/hello', () => {
             "message": "Données invalides.",
         });
     });
-    test("GET /api/hello/1", async () => {
+    test("GET /api/hello/1FA1245D1FA1245D1FA1245D", async () => {
+        await helloRepository.clear();
         await helloRepository.insert(
             { _id: new ObjectId('1FA1245D1FA1245D1FA1245D'), message: "hello" },
         ); 
-        const response = await supertest(app).post('/api/hello/1FA1245D1FA1245D1FA1245D');
+        const response = await supertest(app).get('/api/hello/1FA1245D1FA1245D1FA1245D');
         expect(response.statusCode).toBe(200);
         expect(response.body.message).toEqual("hello");
     });
