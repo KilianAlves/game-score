@@ -72,6 +72,14 @@ describe('Test /api/hello', () => {
             "message": "Message non trouvé.",
         });
     });
+    test("DELETE /api/hello/1FA1245D1FA1245D1FA1245F", async () => {
+        await helloRepository.clear();
+        await helloRepository.insert(
+            { _id: new ObjectId('1FA1245D1FA1245D1FA1245F'), message: "hello" },
+        ); 
+        const response = await supertest(app).delete('/api/hello/1FA1245D1FA1245D1FA1245F');
+        expect(response.statusCode).toBe(200);
+    })
 });
 
 afterAll(async () => {
