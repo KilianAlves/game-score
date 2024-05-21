@@ -42,6 +42,13 @@ export class HelloController {
         const id = req.params.id as string;
         const objectId = new ObjectId(id);
         const helloObject = await helloRepository.findOne(objectId);
+        if (helloObject == undefined) {
+            res.status(404).json({
+                "status": "error",
+                "message": "Message non trouvé.",
+            });
+            return;
+        }
         res.status(200).json(helloObject);
     }
 }
