@@ -9,6 +9,7 @@ import { before } from 'node:test';
 
 describe('Test /api/hello', () => {
     test('GET /api/hello/world', async () => {
+        await helloRepository.clear();
         const response = await supertest(app).get('/api/hello/world');
         expect(response.statusCode).toBe(200);
         expect(response.body.message).toBe('hello');
@@ -20,11 +21,13 @@ describe('Test /api/hello', () => {
         {num: 10, result: 100},
         {num: 12, result: 144}
     ])('GET /api/hello/square/5', async ({num, result}) => {
+        await helloRepository.clear();
         const response = await supertest(app).get('/api/hello/square/' + num);
         expect(response.statusCode).toBe(200);
         expect(response.body).toEqual({ result: result });
     });
     test('GET /api/hello/square/XYZ', async () => {
+        await helloRepository.clear();
         const response = await supertest(app).get('/api/hello/square/XYZ');
         expect(response.statusCode).toBe(404);
     });
@@ -43,11 +46,13 @@ describe('Test /api/hello', () => {
         expect(response.body[1].message).toEqual("world"); 
     });
     test("POST /api/hello", async () => {
+        await helloRepository.clear();
         const response = await supertest(app).post('/api/hello').send({ message: "test"});
         expect(response.statusCode).toBe(201);
         expect(response.body.message).toEqual("test");
     });
     test("POST /api/hello", async () => {
+        await helloRepository.clear();
         const response = await supertest(app).post('/api/hello').send({ msg: "test" });
         expect(response.statusCode).toBe(400);
         expect(response.body).toEqual({
