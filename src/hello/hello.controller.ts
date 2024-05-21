@@ -39,16 +39,10 @@ export class HelloController {
         res.status(201).json(message);
     }
     public static async getById(req: Request, res: Response): Promise<void> {
-        console.log("1");
-
-        const id = req.query.id as string;
-        console.log("2");
-
+        const id = req.params.id as string;
         const objectId = new ObjectId(id);
-        console.log("3");
-
         const helloObject = await helloRepository.findOne(objectId);
-        console.log("4");
+        console.log(helloObject);
         res.status(200).json(helloObject);
     }
 }

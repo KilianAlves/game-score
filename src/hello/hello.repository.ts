@@ -19,7 +19,7 @@ class HelloRepository {
     }
 
     public async findOne(id: ObjectId) {
-        await this._helloCollection.findOne({ _id: id });
+        return await this._helloCollection.findOne({_id: id});
     }
 }
 
