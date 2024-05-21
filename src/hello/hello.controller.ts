@@ -53,6 +53,13 @@ export class HelloController {
         const id = req.params.id as string;
         const objectId = new ObjectId(id);
         const deletedObject = await helloRepository.deleteOne(objectId);
+        if (deletedObject.deletedCount == 0) {
+            res.status(404).json({
+                "status": "error",
+                "message": "Message non trouvé.",
+            });
+            return;
+        }
         res.status(200).json(deletedObject);
     }
 }
