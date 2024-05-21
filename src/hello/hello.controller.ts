@@ -42,7 +42,6 @@ export class HelloController {
         const id = req.params.id as string;
         const objectId = new ObjectId(id);
         const helloObject = await helloRepository.findOne(objectId);
-        console.log(helloObject);
         res.status(200).json(helloObject);
     }
 }
