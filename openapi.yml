@@ -69,6 +69,25 @@ paths:
                 $ref: '#/components/schemas/HelloPost' 
         400:
           description: poste un message invalide
+  /api/hello/{id}:
+    get:
+      tags:
+        - hello
+      description: retourne le message selon un id
+      parameters:
+        - name: id
+          in: path
+          description: id du message
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: retourne le message selon un id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HelloId'
 components:
   schemas:
     World:
@@ -103,3 +122,12 @@ components:
       additionalProperties: false
       required:
         - message
+    HelloId:
+      type: object
+      properties:
+        message:
+          type: string
+      additionalProperties: false
+      required:
+        - message
+
