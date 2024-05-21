@@ -18,6 +18,9 @@ class HelloRepository {
         await this._helloCollection.insertMany(obj);
     }
 
+    public async findAll() {
+        return await this._helloCollection.find({}).toArray();
+    }
     public async findOne(id: ObjectId) {
         return await this._helloCollection.findOne({_id: id});
     }

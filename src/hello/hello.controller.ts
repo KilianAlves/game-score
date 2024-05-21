@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import {helloRepository} from './hello.repository';
 import { validationResult } from "express-validator";
 import { ObjectId } from "mongodb";
+import { isConstructorDeclaration } from "typescript";
 
 export class HelloController {
     public static getHelloWorld(req: Request, res: Response): void {
@@ -16,11 +17,8 @@ export class HelloController {
         const num: number = parseInt(req.params.num);
         res.status(200).json({ result: num * num });
     }
-    public static index(req: Request, res: Response): void {
-        res.send([
-            { message: "hello"},
-            { message: "world"}
-        ])
+    public static async index(req: Request, res: Response): Promise<void> {
+        res.send( await helloRepository.findAll());
     }
     public static async postIndex(req: Request, res: Response): Promise<void> {
 
