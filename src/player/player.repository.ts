@@ -1,6 +1,7 @@
 import { Collection, ObjectId } from "mongodb";
 import { mongodb } from "../services/mongodb";
-import {Player} from "./player" 
+import {Player, Tour} from "./player" 
+import { match } from "assert";
 
 class PlayerRepository {
     private _playerCollection: Collection<Player>
@@ -17,8 +18,11 @@ class PlayerRepository {
         await this._playerCollection.insertMany(obj);
     }
 
-    public async findAll() {
-        return await this._playerCollection.find({}).toArray();
+    async findAll(query: any) {
+        let filter: any = Object.keys(query).length > 0 ? {$and: Object.keys(query).map((key) => {
+            return { [key]: { $regex: query[key], $options: "i" } };
+        })} : {};
+        return await this._playerCollection.find(filter).toArray();
     }
 
     public async populate(count: number, fixturesGenerator: (partialEntity?: Partial<Player>) => Player): Promise<void> {
