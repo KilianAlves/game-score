@@ -110,6 +110,30 @@ paths:
                 $ref: '#/components/schemas/HelloId'
         404:
           description: Message non trouvé.
+  /api/player:
+    get:
+      tags:
+        - player
+      description: Renvoie tout les joueurs
+      parameters:
+        - in: path
+          name: lastname
+          description: Nom de famille du joueur
+          required: false
+        - in: path
+          name: country
+          description: Pays du joueur
+          required: false
+        - in: path
+          name: tour
+          description: Tour du joueur
+      responses:
+        200:
+          description: Renvoie tout les joueurs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Player'
 components:
   schemas:
     World:
@@ -152,4 +176,16 @@ components:
       additionalProperties: false
       required:
         - message
+    Player:
+      type: object
+      properties:
+        lastname:
+          type: string
+        firstname:
+          type: string
+        country: 
+          type: string
+        tour:
+          type: integer
+      additionalProperties: false
 
