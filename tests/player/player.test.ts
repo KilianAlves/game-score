@@ -34,4 +34,20 @@ describe('Test /api/player', () => {
         expect(response.body[0].firstName).toEqual("Caitlyn");
         expect(response.body[1].firstName).toEqual("KillerFrost"); 
     });
+    test('GET /api/player?tour=wta&country=USA', async () => {
+        await playerRepository.clear();
+        await playerRepository.insert(
+            { firstName: "Caitlyn", lastName: "Snow", tour: "WTA", country:"USA" },
+            { firstName: "KillerFrost", lastName: "Snow", tour: "WTA", country:"USA" },
+            { firstName: "Ippo", lastName: "Makunouchi", tour: "ATP", country: "JP" },
+            { firstName: "John", lastName: "Constantine", tour: "ATP", country: "USA" },
+        ); 
+
+        const response = await supertest(app).get("/api/player?tour=atp&country=USA");
+
+        expect(response.statusCode).toBe(200); 
+        expect(response.body.length).toEqual(1);
+        expect(response.body[0].tour).toEqual("ATP");
+        expect(response.body[0].country).toEqual("USA"); 
+    });
 })
