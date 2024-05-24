@@ -6,7 +6,7 @@ class PlayerRepository {
     private _playerCollection: Collection<Player>
     
     constructor() {
-        this._playerCollection = mongodb.collection<Player>('hello');
+        this._playerCollection = mongodb.collection<Player>('player');
     } 
 
     public async clear() {
@@ -19,6 +19,14 @@ class PlayerRepository {
 
     public async findAll() {
         return await this._playerCollection.find({}).toArray();
+    }
+
+    public async populate(count: number, fixturesGenerator: (partialEntity?: Partial<Player>) => Player): Promise<void> {
+        await this.clear();
+        for (let i = 0; i < count; i++) {
+            await this.insert(fixturesGenerator());
+        }
+        return;
     }
 }
 
